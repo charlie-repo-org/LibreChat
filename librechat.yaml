@@ -1,0 +1,17 @@
+version: 1.1.5
+cache: true
+
+endpoints:
+  custom:
+    - name: "Custom-AI"
+      apiKey: "${CUSTOM_AI_API_KEY}"
+      baseURL: "https://ws-bw7mh172fl7pvbnc.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1"
+      models:
+        default:
+          - "qwen3.8-max"
+          - "meta-llama/Llama-3.3-70B-Instruct"
+          - "qwen/Qwen2.5-72B-Instruct"
+        fetch: false
+      titleConvo: true
+      titleModel: "qwen/Qwen2.5-72B-Instruct"
+      modelDisplayLabel: "Enterprise AI"
