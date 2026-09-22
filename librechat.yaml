@@ -1,6 +1,11 @@
 version: 1.1.5
 cache: true
-customFooter: "[Converion AI](https://converion.cc) - Enterprise AI Platform"
+
+# Aktifkan Long-Term Memory untuk User & Agent
+memory:
+  disabled: false
+  tokenLimit: 10000
+  personalize: true
 
 endpoints:
   custom:
@@ -10,10 +15,10 @@ endpoints:
       models:
         default:
           - "qwen3.8-max"
-          - "meta-llama/Llama-3.3-70B-Instruct"
-          - "qwen/Qwen2.5-72B-Instruct"
+          - "qwen3.8-flash"
+          - "deepseek-v4.1-flash"
         fetch: false
       titleConvo: true
       titleMethod: "completion"
-      titleModel: "qwen3.8-max"
+      titleModel: "qwen3.8-flash"
       modelDisplayLabel: "Converion AI"

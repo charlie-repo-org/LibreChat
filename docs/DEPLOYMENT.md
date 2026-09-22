@@ -52,8 +52,9 @@ CREDS_KEY=f34be40772a19967722023d04a3f8393a1b2c3d4e5f60718293a4b5c6d7e8f90
 CREDS_IV=e1234567890123456789012345678901
 ALLOW_REGISTRATION=true
 
-# Branding & Custom Title
+# Branding & Custom Title / Footer
 APP_TITLE=Converion AI
+CUSTOM_FOOTER=[Converion AI](https://converion.cc) - Enterprise AI Platform
 
 # Custom Endpoint & Config Path
 CONFIG_PATH=/app/librechat.yaml
@@ -66,14 +67,19 @@ CSP_FRAME_ANCESTORS="'self' https://converion.cc https://*.converion.cc http://l
 
 ---
 
-## 4. Konfigurasi Custom AI Models (`librechat.yaml`)
+## 4. Konfigurasi Custom AI Models & Memory (`librechat.yaml`)
 
 File ditaruh pada root repository atau di-mount ke `/app/librechat.yaml`:
 
 ```yaml
 version: 1.1.5
 cache: true
-customFooter: "[Converion AI](https://converion.cc) - Enterprise AI Platform"
+
+# Aktifkan Long-Term Memory untuk User & Agent
+memory:
+  disabled: false
+  tokenLimit: 10000
+  personalize: true
 
 endpoints:
   custom:
@@ -83,12 +89,12 @@ endpoints:
       models:
         default:
           - "qwen3.8-max"
-          - "meta-llama/Llama-3.3-70B-Instruct"
-          - "qwen/Qwen2.5-72B-Instruct"
+          - "qwen3.8-flash"
+          - "deepseek-v4.1-flash"
         fetch: false
       titleConvo: true
       titleMethod: "completion"
-      titleModel: "qwen3.8-max"
+      titleModel: "qwen3.8-flash"
       modelDisplayLabel: "Converion AI"
 ```
 
