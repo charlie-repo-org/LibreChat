@@ -80,7 +80,7 @@ type ThemeContextType = {
 };
 
 export const ThemeContext: React.Context<ThemeContextType> = createContext<ThemeContextType>({
-  theme: 'system',
+  theme: 'light',
   setTheme: () => undefined,
   resolvedMode: 'light',
   highContrast: false,
@@ -219,7 +219,7 @@ const writeStorage = (key: string, value?: string): void => {
 
 const getInitialTheme = (): AppearanceMode => {
   const stored = readStorage(THEME_KEY);
-  return stored && isAppearanceMode(stored) ? stored : 'system';
+  return stored && isAppearanceMode(stored) ? stored : 'light';
 };
 
 const getStoredThemeState = (): InitialThemeState => {

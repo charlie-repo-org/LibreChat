@@ -12,7 +12,7 @@ export const themeModeAtom: WritableAtom<
   string,
   [string | typeof RESET | ((prev: string) => string | typeof RESET)],
   void
-> = atomWithStorage<string>('color-theme', 'system', undefined, {
+> = atomWithStorage<string>('color-theme', 'light', undefined, {
   getOnInit: true,
 });
 

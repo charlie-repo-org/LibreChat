@@ -11,6 +11,9 @@ const charlieSSOController = async (req, res) => {
     }
 
     const { email, name } = validation;
+    const charlieRole = req.body?.user?.role;
+    const isCharlieAdmin = charlieRole === 'super_admin' || charlieRole === 'admin';
+
     let user = await findUser({ email });
 
     if (!user) {
@@ -18,11 +21,14 @@ const charlieSSOController = async (req, res) => {
         ? name.toLowerCase().replace(/[^a-z0-9_]/g, '_').slice(0, 30)
         : email.split('@')[0];
 
+      const initialRole = isCharlieAdmin ? 'ADMIN' : 'USER';
+
       const created = await createUser(
         {
           email,
           name,
           username,
+          role: initialRole,
           emailVerified: true,
           provider: 'charlie',
         },
@@ -31,9 +37,20 @@ const charlieSSOController = async (req, res) => {
         true,
       );
       user = created;
-    } else if (name && user.name !== name) {
-      await updateUser(user._id, { name });
-      user.name = name;
+    } else {
+      const updates = {};
+      if (name && user.name !== name) {
+        updates.name = name;
+        user.name = name;
+      }
+      // If user is super_admin in Charlie Platform and not yet ADMIN in LibreChat, promote them
+      if (isCharlieAdmin && user.role !== 'ADMIN') {
+        updates.role = 'ADMIN';
+        user.role = 'ADMIN';
+      }
+      if (Object.keys(updates).length > 0) {
+        await updateUser(user._id, updates);
+      }
     }
 
     const userId = user._id ? user._id.toString() : user.id;
