@@ -190,6 +190,8 @@ export const tokenizer = () => `${BASE_URL}/api/tokenizer`;
 
 export const login = () => `${BASE_URL}/api/auth/login`;
 
+export const charlieSSO = () => `${BASE_URL}/api/auth/charlie-sso`;
+
 export const logout = () => `${BASE_URL}/api/auth/logout`;
 
 export const register = () => `${BASE_URL}/api/auth/register`;

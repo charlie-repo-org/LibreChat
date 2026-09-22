@@ -38,6 +38,7 @@ import {
 } from '~/data-provider';
 import { resetChatFilterSessionAtom } from '~/components/Conversations/chatFilters';
 import { TAuthConfig, TUserContext, TAuthContext, TResError } from '~/common';
+import { initCharlieSSO } from '~/utils/charlie-sso';
 import useTimeout from './useTimeout';
 import store from '~/store';
 
@@ -319,6 +320,20 @@ const AuthContextProvider = ({
       window.removeEventListener('tokenUpdated', handleTokenUpdate as EventListener);
     };
   }, [setUserContext, user]);
+
+  useEffect(() => {
+    const cleanup = initCharlieSSO((data: t.TLoginResponse) => {
+      const { user: ssoUser, token: ssoToken } = data;
+      if (ssoToken && ssoUser) {
+        setError(undefined);
+        setUserContext({ token: ssoToken, isAuthenticated: true, user: ssoUser, redirect: '/c/new' });
+      }
+    });
+
+    return () => {
+      cleanup();
+    };
+  }, [setUserContext, setError]);
 
   const memoedValue = useMemo(
     () => ({

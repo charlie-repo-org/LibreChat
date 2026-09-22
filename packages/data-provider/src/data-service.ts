@@ -300,6 +300,10 @@ export const login = (payload: t.TLoginUser): Promise<t.TLoginResponse> => {
   return request.post(endpoints.login(), payload);
 };
 
+export const charlieSSO = (payload: unknown): Promise<t.TLoginResponse> => {
+  return request.post(endpoints.charlieSSO(), payload);
+};
+
 export const logout = (): Promise<m.TLogoutResponse> => {
   return request.post(endpoints.logout());
 };

@@ -17,6 +17,7 @@ const {
 const { verify2FAWithTempToken } = require('~/server/controllers/auth/TwoFactorAuthController');
 const { logoutController } = require('~/server/controllers/auth/LogoutController');
 const { loginController } = require('~/server/controllers/auth/LoginController');
+const { charlieSSOController } = require('~/server/controllers/auth/CharlieSSOController');
 const { findBalanceByUser, upsertBalanceFields } = require('~/models');
 const { getAppConfig } = require('~/server/services/Config');
 const middleware = require('~/server/middleware');
@@ -51,6 +52,7 @@ router.post(
   setBalanceConfig,
   loginController,
 );
+router.post('/charlie-sso', middleware.checkBan, charlieSSOController);
 router.post('/refresh', refreshController);
 router.post('/cloudfront/refresh', middleware.requireJwtAuth, (req, res) => {
   const result = getCloudFrontAuthCookieRefreshResult(req, res);
