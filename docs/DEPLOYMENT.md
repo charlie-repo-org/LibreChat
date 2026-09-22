@@ -83,7 +83,8 @@ endpoints:
           - "qwen/Qwen2.5-72B-Instruct"
         fetch: false
       titleConvo: true
-      titleModel: "qwen/Qwen2.5-72B-Instruct"
+      titleMethod: "completion"
+      titleModel: "qwen3.8-max"
       modelDisplayLabel: "Enterprise AI"
 ```
 
