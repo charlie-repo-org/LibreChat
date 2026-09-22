@@ -1,5 +1,6 @@
 version: 1.1.5
 cache: true
+customFooter: "[Converion AI](https://converion.cc) - Enterprise AI Platform"
 
 endpoints:
   custom:
@@ -15,4 +16,4 @@ endpoints:
       titleConvo: true
       titleMethod: "completion"
       titleModel: "qwen3.8-max"
-      modelDisplayLabel: "Enterprise AI"
+      modelDisplayLabel: "Converion AI"

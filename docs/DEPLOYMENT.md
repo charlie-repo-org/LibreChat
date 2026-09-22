@@ -52,6 +52,9 @@ CREDS_KEY=f34be40772a19967722023d04a3f8393a1b2c3d4e5f60718293a4b5c6d7e8f90
 CREDS_IV=e1234567890123456789012345678901
 ALLOW_REGISTRATION=true
 
+# Branding & Custom Title
+APP_TITLE=Converion AI
+
 # Custom Endpoint & Config Path
 CONFIG_PATH=/app/librechat.yaml
 CUSTOM_AI_API_KEY=sk-ws-H.DDRRYXR.xxxxxxxxxxx
@@ -70,6 +73,7 @@ File ditaruh pada root repository atau di-mount ke `/app/librechat.yaml`:
 ```yaml
 version: 1.1.5
 cache: true
+customFooter: "[Converion AI](https://converion.cc) - Enterprise AI Platform"
 
 endpoints:
   custom:
@@ -85,7 +89,7 @@ endpoints:
       titleConvo: true
       titleMethod: "completion"
       titleModel: "qwen3.8-max"
-      modelDisplayLabel: "Enterprise AI"
+      modelDisplayLabel: "Converion AI"
 ```
 
 ---
