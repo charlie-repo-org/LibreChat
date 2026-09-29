@@ -23,10 +23,10 @@ jest.mock('~/hooks', () => ({
 }));
 
 describe('Footer', () => {
-  test('opens the default LibreChat site link in a new tab', () => {
+  test('opens the default ConverionAI site link in a new tab', () => {
     render(<Footer startupConfig={null} />);
-    const link = screen.getByRole('link', { name: /LibreChat/ });
-    expect(link).toHaveAttribute('href', 'https://librechat.ai');
+    const link = screen.getByRole('link', { name: /ConverionAI/ });
+    expect(link).toHaveAttribute('href', 'https://converion.cc');
     expect(link).toHaveAttribute('target', '_blank');
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
   });
