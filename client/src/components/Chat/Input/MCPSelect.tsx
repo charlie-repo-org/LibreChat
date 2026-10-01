@@ -1,13 +1,13 @@
 import React, { memo, useRef, useMemo, useEffect } from 'react';
 import * as Ariakit from '@ariakit/react';
 import { ChevronDown } from 'lucide-react';
-import { PermissionTypes, Permissions } from 'librechat-data-provider';
 import { TooltipAnchor, composerControlClasses } from '@librechat/client';
+import { PermissionTypes, Permissions, SystemRoles } from 'librechat-data-provider';
+import { useHasAccess, useLocalize, useAuthContext } from '~/hooks';
 import MCPServerMenuItem from '~/components/MCP/MCPServerMenuItem';
 import MCPConfigDialog from '~/components/MCP/MCPConfigDialog';
 import StackedMCPIcons from '~/components/MCP/StackedMCPIcons';
 import { useMCPRefresh } from '~/hooks/MCP/useMCPRefresh';
-import { useHasAccess, useLocalize } from '~/hooks';
 import { useBadgeRowContext } from '~/Providers';
 import { cn } from '~/utils';
 
@@ -155,12 +155,15 @@ function MCPSelectContent() {
 }
 
 function MCPSelect() {
+  const { user } = useAuthContext();
   const context = useBadgeRowContext();
   const { selectableServers } = context?.mcpServerManager ?? {};
-  const canUseMcp = useHasAccess({
-    permissionType: PermissionTypes.MCP_SERVERS,
-    permission: Permissions.USE,
-  });
+  const canUseMcp =
+    user?.role === SystemRoles.ADMIN &&
+    useHasAccess({
+      permissionType: PermissionTypes.MCP_SERVERS,
+      permission: Permissions.USE,
+    });
 
   if (!canUseMcp || !selectableServers || selectableServers.length === 0) {
     return null;

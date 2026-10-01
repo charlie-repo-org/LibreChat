@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import {
   Permissions,
+  SystemRoles,
   EModelEndpoint,
   PermissionTypes,
   isParamEndpoint,
@@ -25,6 +26,7 @@ import {
   useMCPServerManager,
   useGetAgentsConfig,
   useHasAccess,
+  useAuthContext,
 } from '~/hooks';
 import MCPBuilderPanel from '~/components/SidePanel/MCPBuilder/MCPBuilderPanel';
 import AgentPanelSwitch from '~/components/SidePanel/Agents/AgentPanelSwitch';
@@ -54,6 +56,7 @@ export default function useSideNavLinks({
   endpointsConfig: TEndpointsConfig;
   includeHidePanel?: boolean;
 }) {
+  const { user } = useAuthContext();
   const hasAccessToPrompts = useHasAccess({
     permissionType: PermissionTypes.PROMPTS,
     permission: Permissions.USE,
@@ -220,8 +223,9 @@ export default function useSideNavLinks({
     }
 
     if (
-      (hasAccessToUseMCPSettings && availableMCPServers && availableMCPServers.length > 0) ||
-      hasAccessToCreateMCP
+      user?.role === SystemRoles.ADMIN &&
+      ((hasAccessToUseMCPSettings && availableMCPServers && availableMCPServers.length > 0) ||
+        hasAccessToCreateMCP)
     ) {
       links.push({
         title: 'com_nav_setting_mcp',
@@ -264,6 +268,7 @@ export default function useSideNavLinks({
     hasAccessToCreateMCP,
     includeHidePanel,
     hidePanel,
+    user?.role,
   ]);
 
   return Links;

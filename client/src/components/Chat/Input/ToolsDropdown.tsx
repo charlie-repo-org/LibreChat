@@ -5,6 +5,7 @@ import { Brain, Globe, ScrollText, Settings, Settings2, TerminalSquareIcon } fro
 import {
   AuthType,
   Permissions,
+  SystemRoles,
   ArtifactModes,
   PermissionTypes,
   defaultAgentCapabilities,
@@ -61,10 +62,12 @@ const ToolsDropdown = ({ disabled }: ToolsDropdownProps) => {
     permission: Permissions.USE,
   });
 
-  const canUseMcp = useHasAccess({
-    permissionType: PermissionTypes.MCP_SERVERS,
-    permission: Permissions.USE,
-  });
+  const canUseMcp =
+    user?.role === SystemRoles.ADMIN &&
+    useHasAccess({
+      permissionType: PermissionTypes.MCP_SERVERS,
+      permission: Permissions.USE,
+    });
 
   const canUseSkills = useHasAccess({
     permissionType: PermissionTypes.SKILLS,
